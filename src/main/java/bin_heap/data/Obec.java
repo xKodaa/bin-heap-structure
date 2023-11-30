@@ -1,8 +1,8 @@
-package data;
+package bin_heap.data;
+
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter

@@ -1,7 +1,7 @@
-package data;
+package bin_heap.data;
 
-import structure.AbstrTable;
-import structure.eTypProhl;
+import bin_heap.structure.AbstrTable;
+import bin_heap.structure.eTypProhl;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

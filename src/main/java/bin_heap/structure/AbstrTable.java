@@ -1,7 +1,7 @@
-package structure;
+package bin_heap.structure;
 
-import stack.AbstrFifo;
-import stack.AbstrLifo;
+import bin_heap.stack.AbstrFifo;
+import bin_heap.stack.AbstrLifo;
 
 import java.util.Iterator;
 

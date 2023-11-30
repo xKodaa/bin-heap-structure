@@ -1,4 +1,4 @@
-package structure;
+package bin_heap.structure;
 
 import java.util.Iterator;
 

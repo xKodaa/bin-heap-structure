@@ -1,14 +1,12 @@
-package manager;
+package bin_heap.manager;
 
-import data.DataLoader;
-import data.Generator;
-import data.Obec;
-import structure.AbstrTable;
-import structure.eTypProhl;
+import bin_heap.data.DataLoader;
+import bin_heap.data.Generator;
+import bin_heap.data.Obec;
+import bin_heap.structure.AbstrTable;
+import bin_heap.structure.eTypProhl;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class AgendaKraj {
     private AbstrTable<String, Obec> table;

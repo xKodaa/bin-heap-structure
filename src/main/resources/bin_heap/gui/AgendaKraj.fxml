@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="538.0" prefWidth="1033.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AgendaController">
+<AnchorPane prefHeight="538.0" prefWidth="1033.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin_heap.gui.AgendaController">
     <ListView fx:id="list" layoutY="26.0" prefHeight="500.0" prefWidth="831.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="35.0" />
     <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="975.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
              AnchorPane.topAnchor="0.0">

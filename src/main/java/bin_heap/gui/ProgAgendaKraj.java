@@ -1,4 +1,4 @@
-package gui;
+package bin_heap.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

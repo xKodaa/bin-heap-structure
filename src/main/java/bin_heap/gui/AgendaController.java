@@ -1,6 +1,9 @@
-package gui;
+package bin_heap.gui;
 
-import data.Obec;
+import bin_heap.data.Obec;
+import bin_heap.manager.AgendaKraj;
+import bin_heap.structure.AbstrTable;
+import bin_heap.structure.eTypProhl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,14 +14,9 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
-import manager.AgendaKraj;
-import structure.AbstrTable;
-import structure.eTypProhl;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
-import java.util.Optional;
 
 public class AgendaController {
     @FXML

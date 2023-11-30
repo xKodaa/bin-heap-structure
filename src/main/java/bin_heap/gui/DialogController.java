@@ -1,16 +1,12 @@
-package gui;
+package bin_heap.gui;
 
-import data.Obec;
+import bin_heap.data.Obec;
+import bin_heap.manager.AgendaKraj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Setter;
-import manager.AgendaKraj;
-import structure.AbstrTable;
-import structure.eTypProhl;
-
-import java.util.Iterator;
 
 public class DialogController {
     @FXML

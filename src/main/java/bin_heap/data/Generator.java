@@ -1,6 +1,7 @@
-package data;
+package bin_heap.data;
 
-import structure.AbstrTable;
+import bin_heap.structure.AbstrTable;
+
 import java.util.Random;
 
 public class Generator {
