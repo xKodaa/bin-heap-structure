@@ -2,6 +2,7 @@ package bin_heap.structure;
 
 import bin_heap.stack.AbstrFifo;
 import bin_heap.stack.AbstrLifo;
+import lombok.Getter;
 
 import java.util.Iterator;
 
@@ -9,6 +10,7 @@ public class AbstrTable <K extends Comparable<K>, V> implements IAbstrTable<K,V>
     private TreeNode root;
 
     public class TreeNode {
+        @Getter
         private V value;
         private K key;
         private TreeNode left;
@@ -19,10 +21,6 @@ public class AbstrTable <K extends Comparable<K>, V> implements IAbstrTable<K,V>
             this.key = key;
             this.left = null;
             this.right = null;
-        }
-
-        public V getValue() {
-            return value;
         }
     }
 

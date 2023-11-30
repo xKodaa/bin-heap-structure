@@ -25,7 +25,7 @@ public class AbstrLifo<T> implements IQueueStack<T> {   // last in, first out = 
     @Override
     public void vloz(T data) {
         stack.vlozPrvni(data);
-        list.vlozNaslednika(data);
+        list.vlozPosledni(data);
     }
 
     @Override

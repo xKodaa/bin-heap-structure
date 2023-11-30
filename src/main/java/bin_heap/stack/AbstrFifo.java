@@ -23,7 +23,7 @@ public class AbstrFifo<T> implements IQueueStack<T> {   // first in, first out =
     @Override
     public void vloz(T data) {
         queue.vlozPrvni(data);
-        list.vlozNaslednika(data);
+        list.vlozPosledni(data);
     }
     @Override
     public T odeber() {
