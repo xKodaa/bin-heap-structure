@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DataLoader {
     private final AbstrTable<String, Obec> table;
-    private static final String FILENAME = "vzor.csv";
+    private static final String FILENAME = "./saves/vzor.csv";
 //    private static final String FILENAME = "kraje.csv";
 
     public DataLoader(AbstrTable<String, Obec> table) {
