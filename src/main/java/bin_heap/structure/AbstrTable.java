@@ -166,7 +166,7 @@ public class AbstrTable <K extends Comparable<K>, V> implements IAbstrTable<K,V>
         } else if (typ == eTypProhl.SIRKA) {
             AbstrFifo<TreeNode> fronta = new AbstrFifo<>();
             fronta.vloz(actual);
-            while(!fronta.jePrazdny()) {
+            while (!fronta.jePrazdny()) {
                 TreeNode removedNode = fronta.odeber();
                 // prohlidka "po vrstvach"
                 if (removedNode.left != null) {

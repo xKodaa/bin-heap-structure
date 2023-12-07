@@ -15,16 +15,6 @@ Z
 *src/main/java/bin_heap/data/Generator.java,9\0\905f99c956008d640b38a970758a967925033cbd
 `
 0src/main/java/bin_heap/gui/DialogController.java,1\d\1d7e5bbd660813d5971a9f4479f82eca2f275d52
-]
--src/main/java/bin_heap/stack/IQueueStack.java,3\6\36b2ab7605ed0cfb79515668322a40dd7bda0523
-[
-+src/main/java/bin_heap/stack/AbstrFifo.java,d\1\d1307c98d4ab558dc138f2b35e5867f7d935391b
-b
-2src/main/java/bin_heap/stack/IAbstrDoubleList.java,8\e\8e6ba4ecf53354fd6e34dfe2f719cf88bc1aa70d
-[
-+src/main/java/bin_heap/stack/AbstrLifo.java,8\2\825fafa33d33035fdfa891075b6566bc658cb29b
-a
-1src/main/java/bin_heap/stack/AbstrDoubleList.java,1\2\12e0d09ed99e8925a551d09d92db81bcc7c1e4b5
 _
 /src/main/java/bin_heap/structure/eTypProhl.java,5\4\5446f0e2e08ec7c9014731d81f37c82b701dbd8d
 a
@@ -60,3 +50,5 @@ X
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+b
+2src/main/java/bin_heap/queue/IAbstrDoubleList.java,3\3\333e01f163d5ddfb1ca5c4cd0a89051cea244558

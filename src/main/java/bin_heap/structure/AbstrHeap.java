@@ -47,10 +47,10 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
     }
 
     /**
-     * @return true => heap[i] je vetsi nez heap[j] <br> false => heap[i] je mensi nez heap[j]
+     * @return true => heap[i] je mensi nez heap[j] <br> false => heap[i] je vetsi nez heap[j]
      */
     private boolean jeMensi(int i, int j) {
-        return comparator.compare(heap[i], heap[j]) > 0;
+        return comparator.compare(heap[i], heap[j]) < 0;
     }
 
     @Override
@@ -99,43 +99,55 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
     private Iterator<Integer> vytvorIterator(eTypProhl typProhlidky) {
         int actual = 0;
 
-        if (typProhlidky == eTypProhl.HLOUBKA) {
-            addHeapArrayLength();
-            AbstrLifo<Integer> zasobnik = new AbstrLifo<>();
-            while (heap[actual] != null || !zasobnik.jePrazdny()) {
-                while (heap[actual] != null) {
-                    zasobnik.vloz(actual);
-                    actual = getLeftChild(actual);
-                }
-                actual = zasobnik.odeber();
-                actual = getRightChild(actual);
-            }
+        if (typProhlidky == eTypProhl.HLOUBKA) {    // prohlidka do nejlevejsiho prvku s backtrackingem
+            AbstrLifo<Integer> zasobnik = getHeapStack(actual);
             return zasobnik.vytvorIterator();
 
-        } else if (typProhlidky == eTypProhl.SIRKA) {
-            AbstrFifo<Integer> fronta = new AbstrFifo<>();
-            fronta.vloz(actual);
-            while(!fronta.jePrazdny()) {
-                int removed = fronta.odeber();
-                // prohlidka "po vrstvach"
-                if (getLeftChild(removed) < heapSize) {
-                    fronta.vloz(getLeftChild(removed));
-                }
-                if (getRightChild(removed) < heapSize) {
-                    fronta.vloz(getRightChild(removed));
-                }
-            }
+        } else if (typProhlidky == eTypProhl.SIRKA) {   // prohlidka po vrstvach
+            AbstrFifo<Integer> fronta = getHeapQueue(actual);
             return fronta.vytvorIterator();
         }
         return null;
     }
 
+    private AbstrLifo<Integer> getHeapStack(int actual) {
+        addHeapArrayLength();
+        AbstrLifo<Integer> zasobnik = new AbstrLifo<>();
+        while (heap[actual] != null || !zasobnik.jePrazdny()) {
+            while (heap[actual] != null) {
+                zasobnik.vloz(actual);
+                actual = getLeftChild(actual);
+            }
+            actual = zasobnik.odeber(); // backtrack
+            actual = getRightChild(actual);
+        }
+        return zasobnik;
+    }
+
+    private AbstrFifo<Integer> getHeapQueue(int actual) {
+        AbstrFifo<Integer> fronta = new AbstrFifo<>();
+        fronta.vloz(actual);
+        while (!fronta.jePrazdny()) {
+            int removed = fronta.odeber();
+            if (getLeftChild(removed) < heapSize) { // pokud se leftChild nachazi v heapSize
+                fronta.vloz(getLeftChild(removed));
+            }
+            if (getRightChild(removed) < heapSize) { // pokud se rightChild nachazi v heapSize
+                fronta.vloz(getRightChild(removed));
+            }
+        }
+        return fronta;
+    }
+
     private void checkHeapSize() {
-        if (heapSize * 2 < heap.length) { // pokud je aktualni size 2x menší než velikost heapu
+        int originalLength = heap.length;
+        if (heapSize * 2 < heap.length) { // pokud je aktualni pocet prvku v poli 2x menší než velikost heapu
             reduceHeapArrayLength();
-        } else if (heapSize == heap.length) {
+        } else if (heapSize == heap.length) {   // pokud je stejně prvku v poli jako je jeho velikost
             addHeapArrayLength();
         }
+
+        System.out.println("Heap original length = " + originalLength + "changed to = " + heap.length);
     }
 
     private void addHeapArrayLength() {
