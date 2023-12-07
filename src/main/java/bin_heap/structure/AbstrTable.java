@@ -1,7 +1,7 @@
 package bin_heap.structure;
 
-import bin_heap.stack.AbstrFifo;
-import bin_heap.stack.AbstrLifo;
+import bin_heap.queue.AbstrFifo;
+import bin_heap.queue.AbstrLifo;
 import lombok.Getter;
 
 import java.util.Iterator;

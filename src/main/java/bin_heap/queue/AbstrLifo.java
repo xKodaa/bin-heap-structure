@@ -1,4 +1,4 @@
-package bin_heap.stack;
+package bin_heap.queue;
 
 import java.util.Iterator;
 

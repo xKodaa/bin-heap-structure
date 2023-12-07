@@ -1,4 +1,4 @@
-package bin_heap.stack;
+package bin_heap.queue;
 
 import java.util.Iterator;
 
@@ -8,27 +8,31 @@ public class AbstrFifo<T> implements IQueueStack<T> {   // first in, first out =
     private final AbstrDoubleList<T> list;
 
     public AbstrFifo() {
-        this.queue = new AbstrDoubleList<>();
         this.list = new AbstrDoubleList<>();
+        this.queue = new AbstrDoubleList<>();
     }
 
     @Override
     public void zrus() {
         queue.zrus();
     }
+
     @Override
     public boolean jePrazdny() {
         return queue.jePrazdny();
     }
+
     @Override
     public void vloz(T data) {
         queue.vlozPrvni(data);
         list.vlozPosledni(data);
     }
+
     @Override
     public T odeber() {
         return queue.odeberPosledni();
     }
+
     @Override
     public Iterator<T> vytvorIterator() {
         return list.iterator();

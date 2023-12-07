@@ -3,7 +3,6 @@ package bin_heap.structure;
 import java.util.Iterator;
 
 public interface IAbstrTable <K extends Comparable<K>, V>  {
-
     void zrus();
     boolean jePrazdny();
     V najdi(K key);

@@ -1,6 +1,5 @@
 package bin_heap.data;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
