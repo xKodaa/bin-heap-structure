@@ -3,14 +3,12 @@ package bin_heap.structure;
 import bin_heap.queue.AbstrFifo;
 import bin_heap.queue.AbstrLifo;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 public class AbstrHeap<T> implements IAbstrHeap<T> {
     private T[] heap;
     int heapSize;
-    private final Comparator<T> comparator;
+    private Comparator<T> comparator;
 
     public AbstrHeap(Comparator<T> comparator) {
         this.comparator = comparator;
@@ -22,35 +20,18 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
         if (!jePrazdny()) zrus();
         this.heap = array;
         this.heapSize = heap.length;
-        reorganizace();
-    }
-
-    @Override
-    public void reorganizace() {
-        for (int i = heapSize / 2; i >= 0; i--) {
-            heapDown(i);
-        }
-    }
-
-    private void heapDown(int i) {
-        int maxChild;
-        while ((maxChild = getMaxChild(i)) != -1 && jeMensi(i, maxChild)) {
-            swap(i, maxChild);
-            i = maxChild;
-        }
-    }
-
-    private void swap(int i, int j) {
-        T temp = heap[i];
-        heap[i] = heap[j];
-        heap[j] = temp;
     }
 
     /**
-     * @return true => heap[i] je mensi nez heap[j] <br> false => heap[i] je vetsi nez heap[j]
+     * Všechny listy haldy jsou ve spodní půlce pole, proto začínáme od poloviny směrem nahoru <br>
+     * abychom měli jistotu že kontrolujeme hlavně rodiče, pro které se spouští heapDown
      */
-    private boolean jeMensi(int i, int j) {
-        return comparator.compare(heap[i], heap[j]) < 0;
+    @Override
+    public void reorganizace(Comparator<T> comparator) {
+        this.comparator = comparator;
+        for (int i = heapSize / 2; i >= 0; i--) {
+            heapDown(i);
+        }
     }
 
     @Override
@@ -66,13 +47,35 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
 
     @Override
     public void vloz(T data) {
-        checkHeapSize();
+        if (jePrazdny()) {
+            heap[0] = data;
+            heapSize++;
+        } else {
+            checkHeapSize();
+
+            heap[heapSize++] = data;
+            heapUp(heapSize);
+        }
     }
 
+    /**
+     * Vymění max prvek s nejposlednějším, nový nejposlednější vyNulluje a spustí heapDown
+     */
     @Override
     public T odeberMax() {
+        if (jePrazdny()) {
+            System.err.println("Prázdná halda => nelze odebrat MAX");
+            return null;
+        }
+        T max = heap[0];
+        heap[0] = heap[heapSize-1];
+        heap[heapSize - 1] = null;
+        heapSize--;
+
+        heapDown(0); // zajistí vlastnosti haldy
+
         checkHeapSize();
-        return null;
+        return max;
     }
 
     @Override
@@ -86,14 +89,40 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
     }
 
     @Override
-    public void vypis(eTypProhl typProhlidky) {
+    public List<T> vypis(eTypProhl typProhlidky) {
+        List<T> list = new ArrayList<>();
         Iterator<Integer> iterator = vytvorIterator(typProhlidky);
         if (iterator != null) {
+//            System.out.println("\nVypis haldy dle prohlidky typu: " + typProhlidky);
             while (iterator.hasNext()) {
                 int index = iterator.next();
-                System.out.println("Heap index = " + index + ", data: " + heap[index]);
+                list.add(heap[index]);
+//                System.out.println("Heap[" + index + "]: " + heap[index]);
             }
         }
+        return list;
+    }
+
+    private void heapDown(int parrent) {
+        int maxChild;
+        while ((maxChild = getMaxChild(parrent)) != -1 && jeMensi(parrent, maxChild)) {
+            swap(parrent, maxChild);
+            parrent = maxChild;
+        }
+    }
+
+    private void heapUp(int child) {
+        int parrent;
+        while (child > 0 && jeMensi((parrent = getParent(child)), child)) {
+            swap(parrent, child);
+            child = parrent;
+        }
+    }
+
+    private void swap(int i, int j) {
+        T temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
     }
 
     private Iterator<Integer> vytvorIterator(eTypProhl typProhlidky) {
@@ -129,35 +158,18 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
         fronta.vloz(actual);
         while (!fronta.jePrazdny()) {
             int removed = fronta.odeber();
-            if (getLeftChild(removed) < heapSize) { // pokud se leftChild nachazi v heapSize
-                fronta.vloz(getLeftChild(removed));
+            int leftChildOfRemoved = getLeftChild(removed);
+            int rightChildOfRemoved = getRightChild(removed);
+
+            if (jePrvekVHalde(leftChildOfRemoved)) {
+                fronta.vloz(leftChildOfRemoved);
             }
-            if (getRightChild(removed) < heapSize) { // pokud se rightChild nachazi v heapSize
-                fronta.vloz(getRightChild(removed));
+            if (jePrvekVHalde(rightChildOfRemoved)) {
+                fronta.vloz(rightChildOfRemoved);
             }
         }
         return fronta;
     }
-
-    private void checkHeapSize() {
-        int originalLength = heap.length;
-        if (heapSize * 2 < heap.length) { // pokud je aktualni pocet prvku v poli 2x menší než velikost heapu
-            reduceHeapArrayLength();
-        } else if (heapSize == heap.length) {   // pokud je stejně prvku v poli jako je jeho velikost
-            addHeapArrayLength();
-        }
-
-        System.out.println("Heap original length = " + originalLength + "changed to = " + heap.length);
-    }
-
-    private void addHeapArrayLength() {
-        heap = Arrays.copyOf(heap, (heap.length * 2) + 1);
-    }
-
-    private void reduceHeapArrayLength() {
-        heap = Arrays.copyOf(heap, (heap.length / 2) + 1);
-    }
-
 
     /**
      *  Metody pro získání potomků v haldě, platí pro haldu indexovanou od 0
@@ -170,16 +182,58 @@ public class AbstrHeap<T> implements IAbstrHeap<T> {
         return (parrent * 2) + 2;
     }
 
+    private int getParent(int child) {
+        return (child - 1) / 2;
+    }
+
+    /**
+     * Pomocná metoda pro získání indexu maximálního potomka
+     */
     private int getMaxChild(int parrent) {
         int leftChild = getLeftChild(parrent);
         int rightChild = getRightChild(parrent);
 
-        if (rightChild < heapSize && jeMensi(leftChild, rightChild)) {  // righChild < heapSize = righChild se nachazi v heapu
+        if (jePrvekVHalde(rightChild) && jeMensi(leftChild, rightChild)) {
             return rightChild;
-        } else if (leftChild < heapSize) {  // leftChild < heapSize = leftChild se nachazi v heapu
+        } else if (jePrvekVHalde(leftChild)) {
             return leftChild;
         } else { // Neexistuje potomek
             return -1;
         }
+    }
+
+    /**
+     * @return true => heap[i] je mensi nez heap[j] <br> false => heap[i] je vetsi nez heap[j]
+     */
+    private boolean jeMensi(int i, int j) {
+        if (heap[j] == null) {
+            return false;
+        }
+        return comparator.compare(heap[i], heap[j]) < 0;
+    }
+
+    /**
+     * @return true => prvek se nachazi v haldě <br> false => prvek se nenachází v haldě
+     */
+    private boolean jePrvekVHalde(int prvek) {
+        return prvek < heapSize;
+    }
+
+    private void checkHeapSize() {
+        int originalLength = heap.length;
+        if (heapSize * 2 < heap.length) { // pokud je aktualni pocet prvku v poli 2x menší než velikost heapu
+            reduceHeapArrayLength();
+        } else if (heapSize == heap.length) {   // pokud je stejně prvku v poli jako je jeho velikost
+            addHeapArrayLength();
+        }
+        System.out.println("Velikost haldy = " + originalLength + " se změnila na = " + heap.length);
+    }
+
+    private void addHeapArrayLength() {
+        heap = Arrays.copyOf(heap, (heap.length * 2) + 1);
+    }
+
+    private void reduceHeapArrayLength() {
+        heap = Arrays.copyOf(heap, (heap.length / 2) + 1);
     }
 }

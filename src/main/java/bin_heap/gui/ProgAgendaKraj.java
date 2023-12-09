@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.net.URL;
-import java.io.IOException;
 
 public class ProgAgendaKraj extends Application {
 
@@ -26,9 +25,8 @@ public class ProgAgendaKraj extends Application {
             } else {
                 System.err.println("Chyba při získávání URL z AgendaKraj.fxml souboru");
             }
-        } catch (IOException ex) {
-            System.err.println("Chyba při práci s .fxml souborem");
+        } catch (Exception ex) {
+            System.err.println("Chyba při práci s .fxml souborem: " + ex);
         }
-
     }
 }

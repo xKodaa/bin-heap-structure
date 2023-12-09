@@ -17,34 +17,24 @@ public class AgendaKraj {
     private AbstrTable<String, Obec> table;
     private final Generator generator;
     private final DataLoader dataLoader;
-    private AbstrHeap<Obec> heap;
+    private final AbstrHeap<Obec> heap;
 
     public AgendaKraj() {
         table = new AbstrTable<>();
+        heap = new AbstrHeap<>(vytvorComparator(eTypPriority.POCET_OBYVATEL));
         generator = new Generator(table);
         dataLoader = new DataLoader(table);
+        vybudujTable();
+        vybudujHaldu();
     }
 
-    public void importDat() {
-        table = dataLoader.loadFromCsv();
+    // --- | ABSTR-HEAP | ---
+
+    public List<Obec> vypisHaldu(eTypProhl typProhlidky) {
+        return heap.vypis(typProhlidky);
     }
 
-    public void vypisHeap(eTypProhl typProhlidky) {
-        heap.vypis(typProhlidky);
-    }
-
-    public void createHeapFromTable(eTypPriority typPriority) {
-        List<Obec> list = new ArrayList<>();
-        Iterator<AbstrTable<String, Obec>.TreeNode> iterator = vytvorIterator(eTypProhl.HLOUBKA);
-        while (iterator.hasNext()) {
-            list.add(iterator.next().getValue());
-        }
-        Obec[] array = list.toArray(new Obec[0]);
-        heap = new AbstrHeap<>(createComparator(typPriority));
-        heap.vybuduj(array);
-    }
-
-    private Comparator<Obec> createComparator(eTypPriority typPriority) {
+    public Comparator<Obec> vytvorComparator(eTypPriority typPriority) {
         if (typPriority == eTypPriority.NAZEV_OBCE) {
             return Comparator.comparing(Obec::getMesto);
         } else if (typPriority == eTypPriority.POCET_OBYVATEL) {
@@ -53,7 +43,47 @@ public class AgendaKraj {
         return null;
     }
 
-    public void ulozeniDat() {
+    public void vybudujHaldu() {
+        heap.zrus();
+        List<Obec> list = new ArrayList<>();
+        Iterator<AbstrTable<String, Obec>.TreeNode> iterator = vytvorIteratorTable(eTypProhl.HLOUBKA);
+        while (iterator.hasNext()) {
+            list.add(iterator.next().getValue());
+        }
+        Obec[] array = list.toArray(new Obec[0]);
+        heap.vybuduj(array);
+    }
+
+    public void reorganizujHaldu(eTypPriority typPriority) {
+        heap.reorganizace(vytvorComparator(typPriority));
+    }
+
+    public void zrusHaldu() { heap.zrus(); }
+
+    public void vlozDoHaldy(Obec data) {
+        heap.vloz(data);
+    }
+
+    public Obec odeberMaxZHaldy() {
+        Obec obec = heap.odeberMax();
+        if (obec != null)
+            System.out.println("\nOdebraný max: " + obec.toString());
+        return obec;
+    }
+
+    public Obec zpristupniMaxZHaldy() {
+        Obec obec = heap.zpristupniMax();
+        System.out.println("Max: " + obec.toString());
+        return obec;
+    }
+
+    // --- | ABSTR-TABLE | ---
+
+    public void vybudujTable() {
+        table = dataLoader.loadFromCsv();
+    }
+
+    public void ulozTable() {
         dataLoader.saveIntoCsv();
     }
 
@@ -61,28 +91,30 @@ public class AgendaKraj {
         table.zrus();
     }
 
-    public Obec najdi(String key) {
+    public Obec najdiVTable(String key) {
         Obec found = table.najdi(key);
-        System.out.println("Nalezeno: " + found.toString());
+        if (found != null)
+            System.out.println("Nalezeno: " + found);
         return found;
     }
 
-    public void vloz(String key, Obec obec) {
+    public void vlozDoTable(String key, Obec obec) {
         table.vloz(key, obec);
         System.out.println("Vloženo: " + obec.toString());
     }
 
-    public Obec odeber(String key) {
+    public Obec odeberZTable(String key) {
         Obec removed = table.odeber(key);
-        System.out.println("Odebráno: " + removed.toString());
+        if (removed != null)
+            System.out.println("Odebráno: " + removed);
         return removed;
     }
 
-    public Iterator<AbstrTable<String, Obec>.TreeNode> vytvorIterator(eTypProhl typ) {
+    public Iterator<AbstrTable<String, Obec>.TreeNode> vytvorIteratorTable(eTypProhl typ) {
         return table.vytvorIterator(typ);
     }
 
-    public void generuj(int num) {
+    public void generujDoTable(int num) {
         table = generator.generate(num);
     }
 
