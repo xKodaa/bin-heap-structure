@@ -18,14 +18,11 @@ public class DialogController {
     @FXML
     private TextField tfCity;
     @FXML
-    private Button btnOk;
-    @FXML
     private Button btnCancel;
     @FXML
     private TextField tfRegionName;
     @FXML
     private TextField tfPsc;
-
     @Setter
     private AgendaKraj agenda;
     private Obec randomObec;
@@ -51,7 +48,8 @@ public class DialogController {
     @FXML
     public void submitObec() {
         if (randomlyGeneratedObec) {
-            agenda.vloz(randomObec.getMesto(), randomObec);
+            agenda.vlozDoTable(randomObec.getMesto(), randomObec);
+            agenda.vlozDoHaldy(randomObec);
             randomlyGeneratedObec = false;
         } else {
             int regNum = Integer.parseInt(tfRegionNum.getText());
@@ -61,7 +59,9 @@ public class DialogController {
             int menCount = Integer.parseInt(tfMenCount.getText());
             int womenCount = Integer.parseInt(tfWomenCount.getText());
 
-            agenda.vloz(city, new Obec(regNum, regName, psc, city, menCount, womenCount));
+            Obec obec = new Obec(regNum, regName, psc, city, menCount, womenCount);
+            agenda.vlozDoTable(city, obec);
+            agenda.vlozDoHaldy(obec);
         }
         turnOff();
     }

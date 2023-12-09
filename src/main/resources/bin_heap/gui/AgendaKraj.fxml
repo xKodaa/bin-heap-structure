@@ -13,27 +13,30 @@
 
 <AnchorPane prefHeight="538.0" prefWidth="1033.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bin_heap.gui.AgendaController">
     <ListView fx:id="list" layoutY="26.0" prefHeight="500.0" prefWidth="831.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="35.0" />
-    <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="975.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-             AnchorPane.topAnchor="0.0">
+    <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="975.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Menu mnemonicParsing="false" text="Soubor">
-            <MenuItem fx:id="menuItemLoad" mnemonicParsing="false" onAction="#loadData" text="Načti"/>
-            <MenuItem fx:id="menuItemSave" mnemonicParsing="false" onAction="#saveData" text="Ulož"/>
+            <MenuItem fx:id="mILoadData" mnemonicParsing="false" onAction="#loadData" text="Načti" />
+            <MenuItem fx:id="mISaveData" mnemonicParsing="false" onAction="#saveData" text="Ulož" />
         </Menu>
-        <Menu fx:id="menuClear" mnemonicParsing="false" text="Data">
-            <MenuItem fx:id="menuItemClear" mnemonicParsing="false" onAction="#clearList" text="Zruš"/>
-            <MenuItem fx:id="menuItemGenerate" mnemonicParsing="false" onAction="#generateData" text="Generuj"/>
+        <Menu mnemonicParsing="false" text="Data">
+            <MenuItem fx:id="mIClearData" mnemonicParsing="false" onAction="#clearList" text="Zruš" />
+            <MenuItem fx:id="mIGenerateData" mnemonicParsing="false" onAction="#generateData" text="Generuj" />
         </Menu>
     </MenuBar>
-    <Button fx:id="btnRemoveCity" layoutX="722.0" layoutY="255.0" minWidth="120.0" mnemonicParsing="false" onAction="#removeCity" prefHeight="26.0" prefWidth="166.0" text="Odeber město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="255.0" />
+    <Button fx:id="btnRemoveCity" layoutX="851.0" layoutY="323.0" minWidth="120.0" mnemonicParsing="false" onAction="#removeCity" prefHeight="26.0" prefWidth="166.0" text="Odeber město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="323.0" />
     <Button fx:id="btnApplyIterator" layoutX="722.0" layoutY="70.0" minWidth="120.0" mnemonicParsing="false" onAction="#applyIterator" prefHeight="26.0" prefWidth="166.0" text="Aplikuj iterator" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="70.0" />
-    <Button fx:id="btnInsertCity" layoutX="722.0" layoutY="220.0" minWidth="120.0" mnemonicParsing="false" onAction="#insertCity" prefHeight="26.0" prefWidth="166.0" text="Vlož město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="220.0" />
-    <Label fx:id="lblItemCount" layoutX="729.0" layoutY="503.0" text="Počet položek: 00" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="72.0">
+    <Button fx:id="btnInsertCity" layoutX="851.0" layoutY="287.0" minWidth="120.0" mnemonicParsing="false" onAction="#insertCity" prefHeight="26.0" prefWidth="166.0" text="Vlož město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="287.0" />
+    <Label fx:id="lblItemCount" layoutX="851.4" layoutY="510.20000000000005" text="Počet položek: 00" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="72.0">
         <font>
           <Font size="14.0" />
         </font>
     </Label>
-    <ChoiceBox fx:id="cbIterator" layoutX="724.0" layoutY="35.0" maxWidth="176.0" prefHeight="26.0" prefWidth="165.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
-    <Button fx:id="btnRefresh" layoutX="734.0" layoutY="477.0" minWidth="120.0" mnemonicParsing="false" onAction="#refreshList" prefHeight="26.0" prefWidth="166.0" text="Načti znovu" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="15.0" />
-    <TextField fx:id="tfCityName" layoutX="722.0" layoutY="150.0" prefHeight="26.0" prefWidth="166.0" promptText="Název města" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="150.0" />
-    <Button fx:id="btnShowCity" layoutX="722.0" layoutY="185.0" minWidth="120.0" mnemonicParsing="false" onAction="#findCityByName" prefHeight="26.0" prefWidth="166.0" text="Najdi město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="185.0" />
+    <ChoiceBox fx:id="cbIterator" layoutX="724.0" layoutY="35.0" maxWidth="176.0" prefHeight="26.0" prefWidth="166.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
+    <Button fx:id="btnRefreshList" layoutX="734.0" layoutY="477.0" minWidth="120.0" mnemonicParsing="false" onAction="#refreshList" prefHeight="26.0" prefWidth="166.0" text="Načti znovu" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="15.0" />
+    <TextField fx:id="tfCityName" layoutX="851.0" layoutY="219.0" prefHeight="26.0" prefWidth="166.0" promptText="Název města" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="219.0" />
+    <Button fx:id="btnShowCity" layoutX="851.0" layoutY="253.0" minWidth="120.0" mnemonicParsing="false" onAction="#findCityByName" prefHeight="26.0" prefWidth="166.0" text="Najdi město" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="253.0" />
+   <Button fx:id="btnChangePriority" layoutX="851.0" layoutY="152.0" minWidth="120.0" mnemonicParsing="false" onAction="#applyPriority" prefHeight="26.0" prefWidth="166.0" text="Změň prioritu" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="155.0" />
+   <ChoiceBox fx:id="cbPriority" layoutX="853.0" layoutY="117.0" maxWidth="176.0" prefHeight="26.0" prefWidth="165.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="120.0" />
+   <Button fx:id="btnChangeStructure" layoutX="852.0" layoutY="421.0" minWidth="120.0" mnemonicParsing="false" onAction="#changeStructure" prefHeight="26.0" prefWidth="166.0" text="Změň strukturu" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="15.0" />
+   <ChoiceBox fx:id="cbStructure" layoutX="852.0" layoutY="386.0" maxWidth="176.0" prefHeight="26.0" prefWidth="165.0" AnchorPane.bottomAnchor="125.0" AnchorPane.rightAnchor="15.0" />
 </AnchorPane>
