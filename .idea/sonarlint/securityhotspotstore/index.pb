@@ -52,3 +52,7 @@ X
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 b
 2src/main/java/bin_heap/queue/IAbstrDoubleList.java,3\3\333e01f163d5ddfb1ca5c4cd0a89051cea244558
+]
+-src/main/java/bin_heap/gui/eTypStruktury.java,a\e\ae65b4f3510e9f21b7d3ea94babab954b26f13e7
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
